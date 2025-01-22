@@ -130,9 +130,11 @@ function httpHandler(req, pathname) {
     if (!flag) {
         return new Response("blocked", {status: 403})
     }
-    if (urlStr.search(/^https?:\/\//) !== 0) {
-        urlStr = 'https://' + urlStr
-    }
+    const protocol = req.url.startsWith('https') ? 'https://' : 'http://'
+if (urlStr.search(/^https?:\/\//) !== 0) {
+    urlStr = protocol + urlStr
+}
+
     const urlObj = newUrl(urlStr)
 
     /** @type {RequestInit} */
